@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# Innoloft Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a dashboard application for displaying and editing product information. It provides three main pages: the main page, product view, and product edit.
 
-## Available Scripts
+## Technical Requirements
 
-In the project directory, you can run:
+The application is built using the following technologies:
 
-### `npm start`
+- JavaScript
+- React.js
+- Redux
+- Tailwind CSS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The dashboard is designed to be responsive and compatible with various devices, including mobile devices, with the help of Tailwind CSS.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Thank you for considering my application. I hope you find this solution satisfactory. If you have any questions or need further assistance, please let me know.
+## Table of Contents
 
-### `npm test`
+- [Installation](#installation)
+- [Usage](#usage)
+- [Pages](#pages)
+  - [Main](#main)
+  - [Product View](#product-view)
+  - [Product Edit](#product-edit)
+- [White-Labeling](#white-labeling)
+- [API](#api)
+- [Technical Requirements](#technical-requirements)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+To install and run the application locally, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository: `git clone https://github.com/Xekhai/innoloft-fe-app.git`
+2. Navigate to the project directory: `cd innoloft-fe-app`
+3. Install the dependencies: `npm install`
+4. Create a `.env` file in the root directory and add the following environment variable: `REACT_APP_APP_ID=1`
+5. Start the development server: `npm start`
+6. Open your browser and visit `http://localhost:3000` to access the application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Upon accessing the application, you will see the main dashboard with the following structure:
 
-### `npm run eject`
+- Header with the Innoloft logo
+- Navigation bar
+- Main content area
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+From the navigation bar, you can navigate to different pages within the dashboard.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Pages
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Main
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The main page serves as the default landing page of the dashboard. It may not have any specific content but provides a starting point for the application.
 
-## Learn More
+### Product View
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The product view page displays detailed information about a single product. It includes the following elements:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Main Section:
+  - Image
+  - Title
+  - Type
+  - Description
+- Details Section:
+  - Technologies/Categories
+  - Business Models
+  - TRL (Technology Readiness Level)
+  - Investment Effort / Cost
+- Video Section
+- User Info:
+  - Image
+  - Name
+  - Company Name
+- Map: Displays the company address of the product
 
-### Code Splitting
+### Product Edit
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The product edit page allows users to modify the description, attributes, and add new ones for a product. The categories and business models can be edited using simple text inputs, while the TRL can be selected from a dropdown. When saving the changes, a PUT request is made to the API to update the product.
 
-### Analyzing the Bundle Size
+## White-Labeling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The dashboard supports white-labeling by applying different configurations. These configurations can be set through environment variables. If no `.env` file is provided, the fallback value for `REACT_APP_APP_ID` is 1.
 
-### Making a Progressive Web App
+A configuration object contains the following properties:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `id`: Configuration ID
+- `logo`: URL of the logo image
+- `mainColor`: Main color code in hexadecimal format
+- `hasUserSection`: Indicates whether the user info section should be displayed
 
-### Advanced Configuration
+Depending on the `REACT_APP_APP_ID` environment variable, the corresponding configuration is fetched from the API using the endpoint `/configuration/:appId/`. The available `appIds` are 1 and 2.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+When `hasUserSection` is set to `false`, the user info section on the right side should be hidden. The main color should be applied to the header and other relevant elements according to the configuration.
 
-### Deployment
+## API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The application interacts with the following API endpoints:
 
-### `npm run build` fails to minify
+- Product:
+  - `GET /product/6781/`: Fetches information about a specific product with ID 6781.
+  - `PUT /product/6781/`: Updates the information of the product with ID 6781.
+- TRL List:
+  - `GET /trl/`: Retrieves a list of Technology Readiness Levels.
+- App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ Configuration:
+  - `GET /configuration/:appId/`: Fetches the configuration for the specified `appId`.
+
+Please note that the API itself does not persist any changes made through the application.
